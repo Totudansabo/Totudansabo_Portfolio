@@ -34,12 +34,17 @@ A dynamic portfolio website built with Django, featuring an admin panel for easy
    python manage.py createsuperuser
    ```
 
-4. **Run the Server:**
+4. **Load Initial Data (Optional):**
+   ```bash
+   python manage.py loaddata initial_data
+   ```
+
+5. **Run the Server:**
    ```bash
    python manage.py runserver
    ```
 
-5. **Access the Admin Panel:**
+6. **Access the Admin Panel:**
    Go to `http://127.0.0.1:8000/admin/` and log in with your superuser credentials to start adding content.
 
 ## Models
