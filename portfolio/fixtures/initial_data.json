@@ -1,0 +1,219 @@
+[
+  {
+    "model": "portfolio.profile",
+    "pk": 1,
+    "fields": {
+      "full_name": "Salisu Shamsuddeen",
+      "title": "Project Coordinator | Research Consultant | Data & Field Operations Specialist | IT Professional",
+      "summary": "A dedicated professional committed to delivering excellence through data-driven decisions and technical innovation across global operations.",
+      "about_text": "With a robust background spanning over a decade in field operations, IT consultancy, and high-impact research projects, I specialize in bridging the gap between complex data and actionable strategic insights.\n\nMy journey has been defined by a commitment to precision and operational efficiency. Whether coordinating multi-million dollar regional initiatives or designing bespoke IT infrastructures for emerging markets, my focus remains on creating sustainable value through technological innovation and human-centric leadership.",
+      "years_experience": 10,
+      "projects_delivered": 50,
+      "email": "hello@salisushams.com",
+      "phone": "+1 (555) 000-0000",
+      "linkedin": "https://linkedin.com",
+      "twitter": "https://twitter.com",
+      "whatsapp": "https://whatsapp.com"
+    }
+  },
+  {
+    "model": "portfolio.service",
+    "pk": 1,
+    "fields": {
+      "title": "Project Coordination",
+      "description": "Expert management of complex field operations, team leadership, and cross-functional stakeholder alignment to ensure mission success.",
+      "icon": "hub",
+      "color_class": "primary"
+    }
+  },
+  {
+    "model": "portfolio.servicedetail",
+    "pk": 1,
+    "fields": {
+      "service": 1,
+      "detail": "Budget Oversight"
+    }
+  },
+  {
+    "model": "portfolio.servicedetail",
+    "pk": 2,
+    "fields": {
+      "service": 1,
+      "detail": "Risk Mitigation"
+    }
+  },
+  {
+    "model": "portfolio.servicedetail",
+    "pk": 3,
+    "fields": {
+      "service": 1,
+      "detail": "Resource Allocation"
+    }
+  },
+  {
+    "model": "portfolio.service",
+    "pk": 2,
+    "fields": {
+      "title": "Research & Data",
+      "description": "Quantitative and qualitative data collection, rigorous cleaning, and advanced analytical modelling to reveal underlying patterns.",
+      "icon": "analytics",
+      "color_class": "secondary-container"
+    }
+  },
+  {
+    "model": "portfolio.servicedetail",
+    "pk": 4,
+    "fields": {
+      "service": 2,
+      "detail": "Survey Design"
+    }
+  },
+  {
+    "model": "portfolio.servicedetail",
+    "pk": 5,
+    "fields": {
+      "service": 2,
+      "detail": "Field Supervision"
+    }
+  },
+  {
+    "model": "portfolio.servicedetail",
+    "pk": 6,
+    "fields": {
+      "service": 2,
+      "detail": "Statistical Analysis"
+    }
+  },
+  {
+    "model": "portfolio.service",
+    "pk": 3,
+    "fields": {
+      "title": "IT Infrastructure",
+      "description": "Comprehensive IT professional services from network architecture to system security and digital transformation strategies.",
+      "icon": "terminal",
+      "color_class": "primary-container"
+    }
+  },
+  {
+    "model": "portfolio.servicedetail",
+    "pk": 7,
+    "fields": {
+      "service": 3,
+      "detail": "Cloud Migration"
+    }
+  },
+  {
+    "model": "portfolio.servicedetail",
+    "pk": 8,
+    "fields": {
+      "service": 3,
+      "detail": "Cybersecurity"
+    }
+  },
+  {
+    "model": "portfolio.servicedetail",
+    "pk": 9,
+    "fields": {
+      "service": 3,
+      "detail": "Help Desk Support"
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 1,
+    "fields": {
+      "name": "STATA / SPSS",
+      "icon": "query_stats",
+      "description": "Advanced statistical modelling and dataset manipulation."
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 2,
+    "fields": {
+      "name": "Operations",
+      "icon": "psychology",
+      "description": "Logistics management and regional field supervision."
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 3,
+    "fields": {
+      "name": "Networking",
+      "icon": "settings_ethernet",
+      "description": "Cisco, Mikrotik and Ubiquiti network deployments."
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 4,
+    "fields": {
+      "name": "IT Security",
+      "icon": "shield",
+      "description": "Enterprise-level threat assessment and protection."
+    }
+  },
+  {
+    "model": "portfolio.experience",
+    "pk": 1,
+    "fields": {
+      "job_title": "Lead Field Coordinator",
+      "company": "Regional Research Initiative",
+      "start_date": "2021",
+      "end_date": "PRESENT",
+      "description": "Overseeing end-to-end data collection lifecycle across 12 districts, managing a team of 45 field agents and ensuring 99% data accuracy.",
+      "is_active": true
+    }
+  },
+  {
+    "model": "portfolio.experience",
+    "pk": 2,
+    "fields": {
+      "job_title": "Senior Technical Architect",
+      "company": "Global AI Solutions",
+      "start_date": "2021",
+      "end_date": "PRESENT",
+      "description": "Leading the architectural redesign of the core enterprise AI platform, improving processing efficiency by 40% while maintaining 99.99% uptime for global clients."
+    }
+  },
+  {
+    "model": "portfolio.experiencepoint",
+    "pk": 1,
+    "fields": {
+      "experience": 2,
+      "point": "Spearheaded the migration of legacy monolithic architecture to a high-availability microservices mesh."
+    }
+  },
+  {
+    "model": "portfolio.experiencetag",
+    "pk": 1,
+    "fields": {
+      "experience": 2,
+      "name": "Kubernetes"
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 1,
+    "fields": {
+      "title": "National Census Field Ops",
+      "category": "Project Management",
+      "year": "2024",
+      "description": "Strategic coordination for large-scale demographic data capture.",
+      "image": "projects/project1.jpg",
+      "is_featured": true
+    }
+  },
+  {
+    "model": "portfolio.certification",
+    "pk": 1,
+    "fields": {
+      "name": "Project Management Professional (PMP)®",
+      "issuer": "Project Management Institute",
+      "issue_date": "Jan 2024",
+      "credential_id": "#PMP-98234-SS",
+      "certificate_image": "certifications/images/pmp.jpg"
+    }
+  }
+]

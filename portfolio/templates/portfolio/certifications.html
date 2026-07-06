@@ -1,0 +1,123 @@
+{% extends 'portfolio/base.html' %}
+
+{% block title %}Certifications | {{ profile.full_name }}{% endblock %}
+
+{% block extra_head %}
+<style>
+    .card-transition {
+        transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.3s ease;
+    }
+    .card-transition:hover {
+        transform: translateY(-4px);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<main class="pt-32 pb-section-gap-desktop max-w-container-max mx-auto px-gutter">
+    <!-- Header & Search -->
+    <section class="mb-section-gap-mobile">
+        <div class="max-w-3xl mb-12">
+            <h1 class="font-display-lg text-display-lg text-primary mb-4">Professional Certifications</h1>
+            <p class="font-body-lg text-body-lg text-on-surface-variant">
+                A curated collection of professional achievements and technical verifications from global institutions, validating expertise in Project Management, Cloud Architecture, and Software Engineering.
+            </p>
+        </div>
+        <!-- Filters Bar -->
+        <div class="flex flex-col md:flex-row gap-6 items-start md:items-center justify-between bg-surface-container p-6 rounded-xl border border-outline-variant/30">
+            <!-- Search -->
+            <div class="relative w-full md:w-96">
+                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+                <input id="cert-search" class="w-full pl-12 pr-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-all outline-none" placeholder="Search certificates..." type="text"/>
+            </div>
+            <!-- Select Filters -->
+            <div class="flex flex-wrap gap-4 w-full md:w-auto">
+                <div class="flex items-center gap-2">
+                    <span class="font-label-caps text-label-caps text-on-surface-variant">ORGANIZATION:</span>
+                    <select class="filter-select bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-2 focus:ring-2 focus:ring-secondary outline-none" data-filter="issuer">
+                        <option value="all">All Organizations</option>
+                        {% for issuer in issuers %}
+                        <option value="{{ issuer }}">{{ issuer }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Bento-inspired Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="certs-grid">
+        {% for cert in certifications %}
+        <div class="group bg-surface-container-low rounded-xl overflow-hidden card-transition border border-outline-variant/20 shadow-sm cert-item" data-issuer="{{ cert.issuer }}">
+            <div class="aspect-[16/10] relative overflow-hidden bg-surface-container-high">
+                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="{{ cert.certificate_image.url }}" alt="{{ cert.name }}">
+                <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="material-symbols-outlined text-4xl text-on-primary">visibility</span>
+                </div>
+            </div>
+            <div class="p-6">
+                <div class="flex items-start justify-between mb-3">
+                    <h3 class="font-headline-md text-headline-md-mobile text-primary leading-tight">{{ cert.name }}</h3>
+                    {% if cert.issuer_logo %}
+                    <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm p-1">
+                        <img class="w-full h-auto" src="{{ cert.issuer_logo.url }}" alt="{{ cert.issuer }}">
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="space-y-2 mb-6">
+                    <div class="flex justify-between text-body-sm">
+                        <span class="text-on-surface-variant font-medium">Issuer</span>
+                        <span class="text-primary">{{ cert.issuer }}</span>
+                    </div>
+                    <div class="flex justify-between text-body-sm">
+                        <span class="text-on-surface-variant font-medium">Issue Date</span>
+                        <span class="text-primary">{{ cert.issue_date }}</span>
+                    </div>
+                    {% if cert.credential_id %}
+                    <div class="flex justify-between text-body-sm">
+                        <span class="text-on-surface-variant font-medium">Credential ID</span>
+                        <span class="font-mono text-xs text-primary">{{ cert.credential_id }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+                {% if cert.pdf_file %}
+                <a href="{{ cert.pdf_file.url }}" download class="w-full py-3 bg-primary text-on-primary rounded-lg font-medium flex items-center justify-center gap-2 hover:bg-primary-container transition-colors group">
+                    <span class="material-symbols-outlined text-[20px]">download</span>
+                    Download PDF
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const searchInput = document.getElementById('cert-search');
+    const issuerSelect = document.querySelector('select[data-filter="issuer"]');
+    const certItems = document.querySelectorAll('.cert-item');
+
+    function filterCerts() {
+        const query = searchInput.value.toLowerCase();
+        const issuer = issuerSelect.value;
+
+        certItems.forEach(item => {
+            const title = item.querySelector('h3').textContent.toLowerCase();
+            const itemIssuer = item.getAttribute('data-issuer');
+
+            const matchesSearch = title.includes(query);
+            const matchesIssuer = (issuer === 'all' || itemIssuer === issuer);
+
+            if (matchesSearch && matchesIssuer) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    searchInput.addEventListener('input', filterCerts);
+    issuerSelect.addEventListener('change', filterCerts);
+</script>
+{% endblock %}

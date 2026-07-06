@@ -1,0 +1,90 @@
+{% extends 'portfolio/base.html' %}
+
+{% block title %}Projects | {{ profile.full_name }}{% endblock %}
+
+{% block extra_head %}
+<style>
+    .glass-card:hover {
+        transform: translateY(-8px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    }
+    .active-filter {
+        background-color: #031632;
+        color: white;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<main class="pt-32 pb-section-gap-desktop px-gutter max-w-container-max mx-auto">
+    <!-- Header Section -->
+    <header class="mb-16">
+        <span class="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-4 block">Portfolio</span>
+        <h1 class="font-display-lg text-display-lg mb-6 leading-tight max-w-3xl">Selected projects and strategic initiatives.</h1>
+        <p class="text-on-surface-variant max-w-2xl font-body-lg text-body-lg">
+            A collection of technical leadership, data-driven research, and operational excellence across the digital landscape.
+        </p>
+    </header>
+    <!-- Filters -->
+    <div class="flex flex-wrap items-center gap-3 mb-12">
+        <button class="filter-btn active-filter px-6 py-2 rounded-full font-semibold border border-outline/20 hover:border-primary transition-all" data-category="all">All Projects</button>
+        {% for cat in categories %}
+        <button class="filter-btn px-6 py-2 rounded-full font-semibold border border-outline/20 hover:border-primary transition-all" data-category="{{ cat|slugify }}">{{ cat }}</button>
+        {% endfor %}
+    </div>
+    <!-- Dynamic Projects Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12" id="projects-grid">
+        {% for project in projects %}
+        <div class="group flex flex-col glass-card rounded-xl overflow-hidden p-4 project-item" data-category="{{ project.category|slugify }}">
+            <div class="relative overflow-hidden rounded-lg aspect-[16/10] mb-6">
+                <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="{{ project.image.url }}" alt="{{ project.title }}">
+                {% if project.is_featured %}
+                <div class="absolute top-4 left-4">
+                    <span class="bg-primary/80 backdrop-blur-md text-on-primary px-3 py-1 rounded text-sm font-semibold">Featured</span>
+                </div>
+                {% endif %}
+            </div>
+            <div class="flex justify-between items-start mb-2">
+                <h3 class="font-headline-md text-headline-md text-primary">{{ project.title }}</h3>
+                <span class="text-on-surface-variant font-body-sm text-body-sm mt-1">{{ project.year }}</span>
+            </div>
+            <p class="font-label-caps text-label-caps text-secondary mb-4">{{ project.category }}</p>
+            <p class="text-on-surface-variant mb-8 line-clamp-2">{{ project.description }}</p>
+            <div class="mt-auto flex justify-between items-center">
+                {% if project.link %}
+                <a href="{{ project.link }}" class="text-primary font-semibold flex items-center gap-2 group/btn">
+                    View Details
+                    <span class="material-symbols-outlined text-base group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projectItems = document.querySelectorAll('.project-item');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active-filter'));
+            btn.classList.add('active-filter');
+
+            const category = btn.getAttribute('data-category');
+
+            projectItems.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}
