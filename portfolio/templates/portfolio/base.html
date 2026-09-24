@@ -128,12 +128,19 @@
                 <a class="{% if request.resolver_match.url_name == 'certifications' %}text-secondary font-semibold border-b-2 border-secondary{% else %}text-on-surface-variant hover:text-primary{% endif %} transition-colors font-body-lg text-body-lg" href="{% url 'portfolio:certifications' %}">Certifications</a>
             </div>
             <div class="flex items-center space-x-4">
-                <button class="material-symbols-outlined text-primary p-2 hover:bg-surface-container rounded-full transition-colors">dark_mode</button>
+                
                 {% if profile.cv_file %}
                 <a class="hidden md:block bg-primary text-on-primary px-6 py-2 rounded-full font-semibold hover:opacity-90 active:scale-95 transition-all" href="{{ profile.cv_file.url }}" download>Download CV</a>
                 {% endif %}
-                <button class="md:hidden material-symbols-outlined">menu</button>
+                <button id="mobile-menu-button" type="button" class="md:hidden material-symbols-outlined" aria-label="Open navigation" aria-controls="mobile-menu" aria-expanded="false">menu</button>
             </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden px-gutter pb-4 space-y-3 bg-white">
+    <a class="block" href="{% url 'portfolio:home' %}">About</a>
+    <a class="block" href="{% url 'portfolio:projects' %}">Projects</a>
+    <a class="block" href="{% url 'portfolio:experience' %}">Experience</a>
+    <a class="block" href="{% url 'portfolio:certifications' %}">Certifications</a>
+    {% if profile.cv_file %}<a class="block" href="{{ profile.cv_file.url }}" download>Download CV</a>{% endif %}
         </div>
     </nav>
 
@@ -142,7 +149,7 @@
     <!-- Footer Shell -->
     <footer class="bg-primary text-on-primary w-full py-section-gap-desktop">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-base px-gutter max-w-container-max mx-auto">
-            <div class="md:col-span-2 space-y-6">
+            <div id="contact" class="md:col-span-2 space-y-6">
                 <a class="font-headline-md text-headline-md text-secondary" href="{% url 'portfolio:home' %}">
                     {% if profile %}{{ profile.full_name }}{% else %}Salisu Shamsuddeen{% endif %}
                 </a>
@@ -161,7 +168,7 @@
                     <li><a class="text-on-primary/70 hover:text-secondary transition-colors text-body-sm" href="{% url 'portfolio:home' %}">About Me</a></li>
                     <li><a class="text-on-primary/70 hover:text-secondary transition-colors text-body-sm" href="{% url 'portfolio:experience' %}">Experience</a></li>
                     <li><a class="text-on-primary/70 hover:text-secondary transition-colors text-body-sm" href="{% url 'portfolio:projects' %}">Portfolio</a></li>
-                    <li><a class="text-on-primary/70 hover:text-secondary transition-colors text-body-sm" href="#contact">Contact</a></li>
+                    <li><a class="text-on-primary/70 hover:text-secondary transition-colors text-body-sm" href="{% url 'portfolio:home' %}#contact">Contact</a></li>
                 </ul>
             </div>
             <div class="space-y-6">
@@ -174,11 +181,21 @@
             </div>
         </div>
         <div class="max-w-container-max mx-auto px-gutter mt-20 pt-8 border-t border-white/10 text-center md:text-left">
-            <p class="text-on-primary/50 text-body-sm">© 2024 {% if profile %}{{ profile.full_name }}{% else %}Salisu Shamsuddeen{% endif %}. All rights reserved.</p>
+            <p class="text-on-primary/50 text-body-sm">© {% now 'Y' %} {% if profile %}{{ profile.full_name }}{% else %}Salisu Shamsuddeen{% endif %}. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+const mobileMenu = document.getElementById('mobile-menu');
+
+mobileMenuButton.addEventListener('click', () => {
+    const isOpen = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+    mobileMenuButton.setAttribute('aria-expanded', String(!isOpen));
+    mobileMenuButton.setAttribute('aria-label', isOpen ? 'Open navigation' : 'Close navigation');
+    mobileMenuButton.textContent = isOpen ? 'menu' : 'close';
+    mobileMenu.classList.toggle('hidden', isOpen);
+});
         // Simple scroll effect for navbar
         window.addEventListener('scroll', () => {
             const nav = document.querySelector('nav');
